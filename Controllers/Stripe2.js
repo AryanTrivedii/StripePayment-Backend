@@ -1,7 +1,7 @@
 const stripe = require('stripe')("sk_test_51Ofg1NSD713Gba2a8ljDNgELuDUNNKkG5N5ausUqfjIxYXxnG4iC2Tt73qOKdl01riAVu1LwQTFIqbE1g5ES9iNh00Nh11x0IH");
 const [basic, premium, business] = ['price_1OfgZFSD713Gba2ac7phjrww', 'price_1Ofge7SD713Gba2ai5nA8rjs', 'price_1OfghJSD713Gba2a1SIF6pPP'];
 const { MongoClient } = require('mongodb');
-const User = require("../Models/Users"); // Make sure User model is properly defined
+const User = require("../Models/Users"); 
 const { response } = require('express');
 
 
