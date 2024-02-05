@@ -65,12 +65,6 @@ const updateProduct=async(req,res)=>{
   const {productId}=req.body
   try {
    
-    
-
-
-
-
-
 
   } catch (error) {
     console.log(error)

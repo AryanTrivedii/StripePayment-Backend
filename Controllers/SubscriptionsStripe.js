@@ -141,45 +141,5 @@ const stripeSession = async (plan) => {
 };
 
 
-// const createNewSubscription =async(req,res) => {
-//  const  {plan, userId} = req.body 
-// console.log(plan,userId)
-//     try {
-//         let planId = null;
-//         if (plan == 99) planId = basic;
-//         else if (plan == 499) planId = premium;
-//         else if (plan == 999) planId = business;
-
-//         const user = await User.findById(userId);
-
-//         if (!user) {
-//             return res.status(404).json({ message: 'User not found' });
-//         }
-
-//         const session = await stripeSession(planId);
-
-//         await User.updateOne(
-//             { _id: userId },
-//             {
-//                 $set: {
-//                     subscription: {
-//                         sessionId: session.id,
-//                         planId: planId,
-//                         status: 'pending'
-//                     }
-//                 }
-//             }
-//         );
-
-//         return res.json({ session });
-
-//     } catch (error) {
-//         console.error(error);
-//         res.status(500).json({ error: 'Internal Server Error' });
-//     } finally {
-//         // Close the MongoDB connection when done
-//         await client.close();
-//     }
-// };
 
 module.exports = {Third,updateSubscription, retrieveSubscription,listSubscription,cancelSubscription,stripeSession} ;
