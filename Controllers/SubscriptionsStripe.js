@@ -140,6 +140,42 @@ const stripeSession = async (plan) => {
     }
 };
 
+const Order=async(req,res)=>{
+try {
+    const userId=req.params.userId
+    const invoices = await stripe.invoices.list({
+        customer: userId,
+      });
+  
+      res.json(invoices.data);
+} catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+}
+}
 
 
-module.exports = {Third,updateSubscription, retrieveSubscription,listSubscription,cancelSubscription,stripeSession} ;
+const AllOrders = async (req, res) => {
+    try {
+      const invoices = await stripe.invoices.list({
+        limit: 10,
+      });
+  
+      const allOrders = invoices.data.map(invoice => ({
+        orderId: invoice.id,
+        customer: invoice.customer,
+        amount: invoice.amount_due,
+        name :invoice.customer_name,
+        email:invoice.customer_email,
+        frequency:invoice.frequency
+      }));
+  
+      res.json(allOrders);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  };
+
+
+module.exports = {Third,updateSubscription, retrieveSubscription,listSubscription,cancelSubscription,stripeSession,Order,AllOrders} ;

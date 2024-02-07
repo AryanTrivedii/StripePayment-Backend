@@ -81,8 +81,6 @@ const getProfiles=async(req,res)=>{
 }
 }
 
-
-
               //DELETE PROFILES
 const delProfile = async (req, res) => {
 try {
