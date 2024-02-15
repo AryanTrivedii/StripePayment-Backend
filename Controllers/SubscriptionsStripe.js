@@ -4,7 +4,9 @@ const { MongoClient } = require('mongodb');
 const User = require("../Models/Users"); 
 const { response } = require('express');
 
-
+function isValidStripeCustomerId(id) {
+    return /^cus_[a-zA-Z0-9]+$/.test(id);
+}
 
 
 const Third = async (req,res) => {
@@ -140,20 +142,22 @@ const stripeSession = async (plan) => {
     }
 };
 
+
 const Order=async(req,res)=>{
 try {
-    const userId=req.params.userId
-    const invoices = await stripe.invoices.list({
+const userId=req.params.userId
+if (!isValidStripeCustomerId(userId)) {
+    return res.status(400).json({ error: 'Please enter a valid Stripe customer ID' });
+} const invoices = await stripe.invoices.list({
         customer: userId,
       });
   
-      res.json(invoices.data);
+  res.json(invoices.data);
 } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({ error });
 }
 }
-
 
 const AllOrders = async (req, res) => {
     try {
